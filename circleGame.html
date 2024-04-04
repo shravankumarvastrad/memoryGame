@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .points{
+            text-align: right;
+        }
+        .circle-box{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            gap: 1.5rem;
+        }
+        .circle{
+            border: 2px solid black;
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            width: 100%;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Memory Game</h1>
+        <div class="main">
+            <h2 class="points">Pts:</h2>
+            <div class="circle-box"></div>
+        </div>
+    </div>
+    <script>
+        // let c={
+        //     width:200,
+        //     height:200,
+        //     isOpen:false,
+        //     open(){
+        //         this.isOpen=true
+        //     }
+
+        // }
+        // c.open()
+        // console.log(c.isOpen)
+
+        // this method was controlling the global variables
+        window.onload=function(){
+            function getColor(){
+                let colors=['red','blue']
+                return colors[Math.ceil(Math.random()*100)%colors.length]
+            }
+            function makeCircle(root){
+                let div=document.createElement("div") //div is a dom object
+                div.classList.add("circle")
+                root.appendChild(div)
+                console.log(getColor())
+                return {
+                    isOpen:false,
+                    color:getColor(),
+                    div, 
+                    toggle(){
+                        this.isOpen=!this.isOpen
+                        this.div.style.backgroundColor=this.isOpen?this.color:"brown";
+                    }
+                }
+            }
+            let circleBox=document.querySelector(".circle-box")
+            // let c=makeCircle()
+            // circleBox.appendChild(c.div)
+            let circles=[]
+            for(let i=0;i<10;i++){
+                let c=makeCircle(circleBox)
+                c.toggle()
+                circles.push(c)
+            }
+            setTimeout(()=>circles.forEach(c=>c.toggle()),2000)
+        }
+    </script>
+
+</body>
+</html>
