@@ -97,6 +97,7 @@
             let count=circles.filter(c=>c.color==questionColor).length
             let circlesClicked=0
             let questionBox=document.querySelector(".question")
+            let Pts=document.querySelector(".points")
             function showQuestion(){
             
             questionBox.textContent=`choose circle with color ${questionColor}`
@@ -116,6 +117,7 @@
                 if(!c.isOpen){
                     c.toggle()
                     circlesClicked++
+                    Pts.textContent=`points: ${circlesClicked}`
                     console.log(count,circlesClicked)
                     if(circlesClicked==count){
                         questionBox.textContent="You win!!"
