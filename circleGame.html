@@ -23,14 +23,21 @@
             width: 100%;
 
         }
-
+        .flex{
+            justify-content: space-between;
+            display: flex;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Memory Game</h1>
         <div class="main">
-            <h2 class="points">Pts:</h2>
+            <div class="flex">
+                <h2 class="question"></h2>
+                <h2 class="points">Pts:</h2>
+            </div>
+            
             <div class="circle-box"></div>
         </div>
     </div>
@@ -49,6 +56,9 @@
 
         // this method was controlling the global variables
         window.onload=function(){
+            function getRamdomCircle(circles){
+                return circles[Math.ceil(Math.random()*100)%circles.length]
+            }
             function getColor(){
                 let colors=['red','blue']
                 return colors[Math.ceil(Math.random()*100)%colors.length]
@@ -75,9 +85,46 @@
             for(let i=0;i<10;i++){
                 let c=makeCircle(circleBox)
                 c.toggle()
+                c.div.onclick=handler
                 circles.push(c)
             }
-            setTimeout(()=>circles.forEach(c=>c.toggle()),2000)
+            setTimeout(()=>{
+                        circles.forEach(c=>c.toggle())
+                        showQuestion()},1000)
+
+            let currentCircle=getRamdomCircle(circles)
+            let questionColor=currentCircle.color
+            let count=circles.filter(c=>c.color==questionColor).length
+            let circlesClicked=0
+            let questionBox=document.querySelector(".question")
+            function showQuestion(){
+            
+            questionBox.textContent=`choose circle with color ${questionColor}`
+            }
+
+            function getCircleFromDomObj(domObj,circles){
+                return circles.filter(c=>c.div==domObj)[0]
+            }
+            function handler(e){
+                let c=getCircleFromDomObj(e.target,circles)
+                // console.log(c.color)
+                if (c.color!=questionColor){
+                    circles.forEach(c=>(!c.isOpen?c.toggle():null))
+                    questionBox.textContent="You lose!!"
+                    return
+                }
+                if(!c.isOpen){
+                    c.toggle()
+                    circlesClicked++
+                    console.log(count,circlesClicked)
+                    if(circlesClicked==count){
+                        questionBox.textContent="You win!!"
+                        circles.forEach(c=>(!c.isOpen?c.toggle():null))
+
+                    }
+                    
+                }
+            }            
         }
     </script>
 
