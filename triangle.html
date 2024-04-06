@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script type="application/javascript">
+   
+        function draw() {
+        const canvas = document.getElementById("canvas");
+        if (canvas.getContext) {
+            const ctx = canvas.getContext("2d");
+  
+            ctx.beginPath();
+            ctx.moveTo(20, 30);
+            ctx.lineTo(40, 70);
+            ctx.lineTo(60, 20);
+            ctx.lineTo(60, 120);
+            ctx.lineTo(60,110);
+            ctx.lineTo(10,90)
+            ctx.fill();
+        }
+    }
+    draw()
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Tiger(){
+            console.log(this)
+        }
+        Tiger()
+        let obj=new Tiger()
+        class Person {
+            name;
+
+            constructor(name) {
+                this.name = name;
+            }
+
+            introduceSelf() {
+                console.log(`Hi! I'm ${this.name}`);
+            }
+        }
+        const giles = new Person("Giles");
+        const gails = new Person("anup");
+        giles.introduceSelf(); // Hi! I'm Giles
+        gails.introduceSelf();
+
+    </script>
+</body>
+</html>
