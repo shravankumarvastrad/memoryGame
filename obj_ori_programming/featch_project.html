@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container"></div>
+    <script>
+        let container=document.querySelector(".container")
+        function getBreedTemplete(breed){
+            return `<div class="breed">
+                    <h1>${breed.breed}</h1>
+                    <p>${breed.country}</p>
+                    </div>`
+        }
+
+        async function loadBreeds(limit=5){
+            let p=`https://catfact.ninja/breeds?limit=${limit}`
+            try {
+                let d=await fetch(p)
+                let obj= await d.json()
+                let breeds= await obj.data
+                console.log(breeds)
+                let res=breeds.map(getBreedTemplete).join('')
+                
+                container.innerHTML=res
+            }
+            catch(e){
+                console.log(e)
+            }
+        }
+        loadBreeds()
+    </script>
+    
+</body>
+</html>

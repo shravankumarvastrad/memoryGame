@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function doTask(task,delay){
+        //     setTimeout(task,delay)
+        // }
+        function taskOne(){
+            console.log("Task One")
+            return 200
+        }
+        function taskTwo(d){
+            console.log("Task Two")
+            return d+200
+        }
+        // doTask(taskOne,500)
+        // doTask(taskTwo,200)
+        // console.log("Task done")
+            function doTask(task,delay,res){
+                return new Promise((resolve,reject)=>{
+                    setTimeout(()=>{
+                        let val=task(res)
+                        if(val==200 || val==undefined){
+                            resolve(val)
+                            return
+                        }
+                        reject("Rejected task")
+                    },delay)
+                })
+            }
+            // doTask(taskOne,500).then(v=>doTask(taskTwo,200,v)).then(v=>console.log(v)).catch(v=>console.log(v))
+            // console.log("Outside")
+            
+            // MORE USING IN API
+            async function doAll(){
+                try{
+                    let val=await doTask(taskOne,500)
+                    let res=await doTask(taskTwo,200)
+                    console.log(res)
+                }
+                catch(e){
+                    console.log(e)
+                }
+            }
+            doAll()
+            console.log("out")
+            
+            // featch function
+            
+            
+    </script>
+</body>
+</html>
